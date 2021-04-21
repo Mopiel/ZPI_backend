@@ -1,0 +1,14 @@
+{
+  "name": "proj_zti_backend",
+  "version": "1.0.0",
+  "description": "backend project for ZPI classes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "^15.5.0"
+  }
+}
