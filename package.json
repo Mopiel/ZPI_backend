@@ -2,13 +2,35 @@
   "name": "proj_zti_backend",
   "version": "1.0.0",
   "description": "backend project for ZPI classes",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "main": "clientMongoDB.js",
   "dependencies": {
-    "graphql": "^15.5.0"
-  }
+    "address": "^1.1.2",
+    "apollo-server": "^2.19.0",
+    "apollo-server-express": "^2.18.2",
+    "express": "^4.17.1",
+    "getmac": "^5.17.0",
+    "graphql": "^15.5.0",
+    "macaddress": "^0.5.1",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.9",
+    "mongose": "0.0.2-security",
+    "noble": "^1.9.1",
+    "node-beacon-scanner": "^0.2.2",
+    "nodemon": "^2.0.5",
+    "ws": "^7.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/index.js",
+    "startBackend": "sudo node device/Scanner.js"
+  },
+  "keywords": [],
+  "author": "Bartlomiej Kolodziejczyk",
+  "license": "ISC"
 }
