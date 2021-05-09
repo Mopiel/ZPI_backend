@@ -1,58 +1,23 @@
 import { User } from "../models/User";
 import { MassEmail } from "../models/MassEmail";
+import { CreateUser } from "./AuthenticateUser/create-user";
+import { Authenticate } from "./AuthenticateUser/authentication";
 
 export const resolvers = {
   Query: {
+    isAuthenticated: (root, args, context) => !!context.user,
     users: async () => await User.find(),
-    myEmails: async (_, {}) => {
+    myEmails: async (root, args, context) => {
+      const user = context.user;
+      if (!user) return null;
+      console.log(user.id);
+      // sendEmail();
       return await MassEmail.find();
     },
   },
 
   Mutation: {
-    createUser: async (_, { email, login, password }) => {
-      if (await User.findOne({ email }))
-        return {
-          message: "User with this email exists",
-          created: false,
-        };
-      if (await User.findOne({ login }))
-        return {
-          message: "Login already exists",
-          created: false,
-        };
-      const newUser = new User({ email, login, password });
-
-      const info = await newUser
-        .save()
-        .then(() => ({
-          message: "Everything is fine",
-          created: true,
-        }))
-        .catch(() => ({
-          message: "Could not save new User",
-          created: false,
-        }));
-      return info;
-    },
-    authenticate: async (_, { emailOrEmail, password }) => {
-      if (false)
-        return {
-          authenticated: false,
-          message: "Wrong Email or Login",
-          token: "",
-        };
-      if (false)
-        return {
-          authenticated: false,
-          message: "Wrong Password or Login",
-          token: "",
-        };
-      return {
-        authenticated: true,
-        message: "Correct Authentication",
-        token: "weipqwoiepyuwqeotuioweu",
-      };
-    },
+    createUser: CreateUser,
+    authenticate: Authenticate,
   },
 };

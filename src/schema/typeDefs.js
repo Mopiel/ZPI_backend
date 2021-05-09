@@ -19,6 +19,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    isAuthenticated: Boolean!
     users: [User!]!
     myEmails: [MassEmail!]!
   }
@@ -30,6 +31,6 @@ export const typeDefs = gql`
   }
   type Mutation {
     createUser(email: String!, login: String!, password: String!): Message!
-    authenticate(emailOrEmail: String!, password: String!): Authenticate!
+    authenticate(loginOrEmail: String!, password: String!): Authenticate!
   }
 `;
