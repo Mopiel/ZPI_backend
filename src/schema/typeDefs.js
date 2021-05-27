@@ -8,8 +8,11 @@ export const typeDefs = gql`
   }
 
   type MassEmail {
-    user: String!
-    body: String!
+    id: String!
+    userId: String!
+    name: String!
+    html: String!
+    design: String!
     mailingAddresses: [String!]!
   }
 
@@ -20,8 +23,8 @@ export const typeDefs = gql`
 
   type Query {
     isAuthenticated: Boolean!
-    users: [User!]!
     myEmails: [MassEmail!]!
+    getEmail(id: String!): MassEmail
   }
 
   type Authenticate {
@@ -30,6 +33,15 @@ export const typeDefs = gql`
     token: String!
   }
   type Mutation {
+    createEmail(name: String!): MassEmail
+    deleteEmail(id: String!): Boolean!
+    sendEmail(id: String!): Boolean!
+    setEmailUsers(
+      id: String!
+      name: String!
+      mailingAddresses: [String!]
+    ): MassEmail
+    setEmailBody(id: String!, html: String!, design: String!): MassEmail
     createUser(email: String!, login: String!, password: String!): Message!
     authenticate(loginOrEmail: String!, password: String!): Authenticate!
   }

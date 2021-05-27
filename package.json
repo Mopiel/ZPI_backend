@@ -17,6 +17,7 @@
     "express-validator": "^6.10.1",
     "getmac": "^5.17.0",
     "graphql": "^15.5.0",
+    "graphql-voyager": "^1.0.0-rc.31",
     "jsonwebtoken": "^8.5.1",
     "macaddress": "^0.5.1",
     "mongodb": "^3.6.2",

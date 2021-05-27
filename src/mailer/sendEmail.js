@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import cos from "./cos.html";
 
-export async function sendEmail() {
+export async function sendEmailFunc(html, name, addresses) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
@@ -19,11 +19,11 @@ export async function sendEmail() {
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: "Bartek czyli ja <noreplayzpi@fastmail.com>", // sender address
-    to: "bartekwielki01@interia.pl, baz@example.com", // list of receivers
-    subject: "Hello ✔", // Subject line
+    from: "NO REPLAY<noreplayzpi@fastmail.com>", // sender address
+    to: addresses.join(","), // list of receivers
+    subject: name, // Subject line
     // text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html,
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -33,4 +33,5 @@ export async function sendEmail() {
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   console.log("Preview URL: %s", info.to);
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  return !!info.messageId;
 }

@@ -3,10 +3,10 @@ import express from "express";
 import { typeDefs } from "./schema/typeDefs";
 import { resolvers } from "./schema/resolvers";
 import { GetTheUser } from "./schema/AuthenticateUser/authentication";
+import { express as voyagerMiddleware } from "graphql-voyager/middleware";
 
 import cors from "cors";
 import mongoose from "mongoose";
-import expressJwt from "express-jwt";
 
 const startServer = async () => {
   const app = express();
@@ -27,6 +27,8 @@ const startServer = async () => {
     },
   });
 
+  app.use("/voyager", voyagerMiddleware({ endpointUrl: "/graphql" }));
+
   server.applyMiddleware({ app });
 
   await mongoose.connect("mongodb://127.0.0.1:27017/ZTI_backend", {
@@ -38,5 +40,4 @@ const startServer = async () => {
     console.log(`Server ready at http://localhost:4000${server.graphqlPath}`);
   });
 };
-
 startServer();
