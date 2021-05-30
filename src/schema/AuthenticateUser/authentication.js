@@ -7,16 +7,10 @@ export const Authenticate = async (_, { loginOrEmail, password }) => {
   const user = await User.findOne({
     $or: [{ login: loginOrEmail }, { email: loginOrEmail }],
   });
-  if (!user)
+  if (!user || !concatPasswords(password, user.password))
     return {
       authenticated: false,
-      message: "Can not find such a User",
-      token: "",
-    };
-  if (!concatPasswords(password, user.password))
-    return {
-      authenticated: false,
-      message: "Wrong Password",
+      message: "Wrong password or username",
       token: "",
     };
   const token = sign(

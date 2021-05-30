@@ -21,12 +21,15 @@ const options = {
 
 export const CreateUser = async (_, { email, login, password }) => {
   if (
-    await User.findOne({
+    (await User.findOne({
       $or: [{ login: email }, { email }],
-    })
+    })) ||
+    (await User.findOne({
+      $or: [{ login }, { email: login }],
+    }))
   )
     return {
-      message: "User with this email exists",
+      message: "User with this email or login already exists",
       created: false,
     };
   const emailVal = validator.validate(email);
@@ -36,20 +39,11 @@ export const CreateUser = async (_, { email, login, password }) => {
       created: false,
     };
 
-  if (
-    await User.findOne({
-      $or: [{ login }, { email: login }],
-    })
-  )
-    return {
-      message: "Login already exists",
-      created: false,
-    };
-
   const result = validate(password, options);
   if (!result.valid)
     return {
-      message: result.errors.reduce((a, b) => a + `, ${b}`, ""),
+      message:
+        "Check your password, min length - 8, need digits, lower and upper case.",
       created: false,
     };
 
